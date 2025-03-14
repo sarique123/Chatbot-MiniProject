@@ -1,0 +1,9 @@
+*.pyc
+__pycache__/
+.venv/
+env/
+*.log
+media/
+migrations/
+staticfiles/
+.env
