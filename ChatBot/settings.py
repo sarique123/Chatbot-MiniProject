@@ -35,6 +35,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',  # Daphne is the ASGI server that replaces WSGI
+    'channels',  # Adds WebSocket support
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +45,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ChatApp.apps.ChatappConfig',
 ]
+
+
+# ASGI application path
+ASGI_APPLICATION = "ChatBot.asgi.application"
+
+# Redis-based Channel Layer
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -93,6 +109,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'ChatApp.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
